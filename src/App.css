@@ -1,88 +1,127 @@
 @font-face {
-  font-family: 'MADE_SAONARA';
-  src: url('./fonts/MADE SAONARA/MADE SAONARA PERSONAL USE.otf') format('opentype');
+  font-family: "MADE_SAONARA";
+  src: url("./fonts/MADE SAONARA/MADE SAONARA PERSONAL USE.otf")
+    format("opentype");
 }
 @font-face {
-  font-family: 'MADE_SAONARA2';
-  src: url('./fonts/MADE SAONARA/MADE SAONARA 2 PERSONAL USE.otf') format('opentype');
+  font-family: "MADE_SAONARA2";
+  src: url("./fonts/MADE SAONARA/MADE SAONARA 2 PERSONAL USE.otf")
+    format("opentype");
 }
 
-.b {
-  width: 100%;
-  height: 100%;
-
-  overflow-x: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+@keyframes chewTop {
+  0% {
+    transform: translateY(-70vh);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
-.b::-webkit-scrollbar {
-  display: none;
+@keyframes chewBottom {
+  0% {
+    transform: translateY(60vh);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
-
-.imageList {
-  display: grid;
-  grid-template-columns: repeat(5, 33vw) ;
-  grid-column-gap: 4.167vw;
-
-  margin: 0;
-  padding: 8vh 8vw;
-
-  width: fit-content;
-  height: 84vh;
-
-  background-color: #1C1C1C;
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
-
-.imageList > .imageListItem{
-  position: relative;
-
-  display: flex;
-  
-  align-items: center;
-  
-  width: 100%;
-  height: 100%;
-
-  list-style: none;
-
-  background-color: #9DADCC;
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
-.imageList > .imageListItem > .imageListItemImageBox{
-  position: absolute;
-
-  display: flex;
-  justify-content: center;
-
-  width: 100%;
-  height: 100%;
-
+.chew-enter {
   overflow: hidden;
 }
-.imageList > .imageListItem > .imageListItemImageBox > img{
-  height: 100%;
+.chew-enter::after,
+.chew-enter::before {
+  content: none;
+}
+.chew-enter > * {
+  opacity: 0;
+
+  animation-duration: 0.001s;
+  animation-delay: 0.5s;
+  animation-name: fadeIn;
+  animation-fill-mode: forwards;
 }
 
+.chew-enter.chew-enter-active {
+}
+.chew-enter.chew-enter-active::after {
+  content: "";
 
-.imageList > .imageListItem > .imageListItemContent{
   position: absolute;
+  top: 0px;
+  z-index: 100;
 
-  width: 100%;
+  width: 100vw;
+  height: 70vh;
+  background-image: url("./images/top.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
 
+  animation-duration: 0.5s;
+  animation-name: chewTop;
+  animation-timing-function: ease-in;
+  animation-iteration-count: 2;
+  animation-direction: alternate;
+}
+.chew-enter.chew-enter-active::before {
+  content: "";
+
+  position: absolute;
+  bottom: 0px;
+  z-index: 100;
+
+  width: 100vw;
+  height: 60vh;
+  background-image: url("./images/bottom.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+
+  animation-duration: 0.5s;
+  animation-name: chewBottom;
+  animation-timing-function: ease-in;
+  animation-iteration-count: 2;
+  animation-direction: alternate;
+}
+
+.chew-exit {
   overflow: hidden;
+
+  animation-duration: 0.001s;
+  animation-delay: 0.5s;
+  animation-name: fadeOut;
+  animation-fill-mode: forwards;
 }
-
-
-.imageList > .imageListItem > .imageListItemContent > .imageListItemText{
-  text-align: center;
-  
-  font-family: 'MADE_SAONARA';
-  font-size: 5vw;
+.chew-exit.chew-exit-active {
 }
+.chew-exit.chew-exit-active::after {
+  content: "";
 
-.imageList > .imageListItem > .imageListItemContent > .imageListItemLink > .imageListItemLinkText{
-  text-align: center;
+  position: fixed;
+  top: 0px;
 
-  font-size: 1vw;
-  font-weight: bold; 
+  width: 100vw;
+  height: 100vh;
+
+  background-image: url("./images/effect.png");
+  animation-duration: 0.5s;
+  animation-name: fadeIn;
+  animation-fill-mode: forwards;
 }
